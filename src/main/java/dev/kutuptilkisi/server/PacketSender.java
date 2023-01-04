@@ -34,6 +34,10 @@ public class PacketSender implements Runnable{
             if(packetsToSend.size() != 0){
                 try {
                     Map.Entry<Socket, List<Packet>> entry = packetsToSend.entrySet().iterator().next();
+                    if(packetsToSend.get(entry.getKey()).size() == 0){
+                        packetsToSend.remove(entry.getKey());
+                        continue;
+                    }
                     DataOutputStream dos = new DataOutputStream(entry.getKey().getOutputStream());
                     Packet packet = entry.getValue().get(0);
                     packet.write(dos);
