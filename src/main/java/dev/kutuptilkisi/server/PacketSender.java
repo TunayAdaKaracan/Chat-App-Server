@@ -33,7 +33,7 @@ public class PacketSender implements Runnable{
         while(!shutdown){
             if(packetsToSend.size() != 0){
                 try {
-                    Map.Entry<Socket, List<Packet>> entry = packetsToSend.entrySet().iterator().next();
+                    Map.Entry<Socket, List<Packet>> entry = new HashMap<>(packetsToSend).entrySet().iterator().next();
                     if(packetsToSend.get(entry.getKey()).size() == 0){
                         packetsToSend.remove(entry.getKey());
                         continue;
