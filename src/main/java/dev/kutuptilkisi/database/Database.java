@@ -18,6 +18,15 @@ public class Database {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        try {
+            Statement statement = sqlConnection.createStatement();
+            statement.execute("CREATE TABLE IF NOT EXISTS users (id int not null auto_increment, username TEXT, email TEXT, password TEXT, lastactive timestamp not null DEFAULT CURRENT_TIMESTAMP(), PRIMARY KEY(id));");
+            statement.execute("CREATE TABLE IF NOT EXISTS messages (id int not null auto_increment, username TEXT, content TEXT, timestamp timestamp not null DEFAULT CURRENT_TIMESTAMP(), PRIMARY KEY(id));");
+            statement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void close(){
